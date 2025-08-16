@@ -1,0 +1,28 @@
+# Build Folders
+bin/
+obj/
+
+# Visual Studio / Rider / VS Code files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vscode/
+*.idea/
+*.vs/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+
+# Logs
+*.log
+
+# ASP.NET Core runtime
+wwwroot/lib/
+*.db
+
+# OS files
+.DS_Store
+Thumbs.db
