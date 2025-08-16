@@ -1,0 +1,83 @@
+﻿
+@model IEnumerable<GradeDTO>
+
+@{
+    ViewBag.Title = "Оцінки";
+}
+
+<div class="col-8 col-12-medium imp-medium">
+    <div id="content">
+        <section class="box article-list">
+            <h2 class="icon fa-file-alt">Оцінки</h2>
+
+            <form method="get" asp-action="Index" class="mb-4">
+                <label>Студент:</label>
+                <select name="student" 
+                onchange="this.form.submit()"
+                >
+                    <option value="">Всі</option>
+                    @foreach (var s in ViewBag.Students)
+                    {
+                        <option value="@s" 
+                            selected="@(Context.Request.Query["student"] == s ? "selected" : null)"
+                        >
+                            @s
+                        </option>
+                    }
+                </select><p></p>
+
+                <label>Предмет:</label>
+                <select name="subject" 
+                onchange="this.form.submit()"
+                >
+                    <option value="">Всі</option>
+                    @foreach (var subj in ViewBag.Subjects)
+                    {
+                        <option value="@subj" 
+                            selected="@(Context.Request.Query["subject"] == subj ? "selected" : null)"
+                        >
+                            @subj
+                        </option>
+                    }
+                </select><p></p>
+
+                <label>Дата:</label>
+                <select name="date" 
+                onchange="this.form.submit()"
+                >
+                    <option value="">Всі</option>
+                    @foreach (var d in ViewBag.Dates)
+                    {
+                        string val = d.ToString("yyyy-MM-dd");
+                        <option value="@val" 
+                            selected="@(Context.Request.Query["date"] == val ? "selected" : null)"
+                        >
+                            @d.ToString("dd.MM.yyyy")
+                        </option>
+                    }
+                </select><p></p>
+            </form>
+
+            @if (Model.Any())
+            {
+                @foreach (var entity in Model)
+                {
+                    <article class="box excerpt major">
+                        <div>
+                            <h4>
+                                Студент: @entity.StudentFirstname @entity.StudentSecondname |
+                                Предмет: @entity.SubjectName |
+                                Дата: @entity.Date?.ToString("dd.MM.yyyy") |
+                                Оцінка: @entity.Value
+                            </h4>
+                        </div>
+                    </article>
+                }
+            }
+            else
+            {
+                <h3>Записи відсутні</h3>
+            }
+        </section>
+    </div>
+</div>

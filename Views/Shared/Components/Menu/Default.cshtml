@@ -1,0 +1,33 @@
+﻿@model IEnumerable<GroupDTO>
+<nav id="nav">
+    <ul>
+        <li>
+            <a asp-area="" asp-controller="Home" asp-action="Index">Головна</a>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Timetable" asp-action="ScheduleShow">Розклад</a>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Timetable" asp-action="ChangesShow">Заміни</a>
+        </li>
+        <!--<li>
+            <a asp-area="" asp-controller="Group" asp-action="Index">Групи</a>
+            <ul>
+                @foreach (GroupDTO entity in Model)
+                {
+                    <li>
+                        <a asp-area="" asp-controller="Group" asp-action="GroupShow" asp-route-id="@entity.Id">
+                            @entity.GroupName
+                        </a>
+                    </li>
+                }
+            </ul>
+        </li>-->
+        <li>
+            <a asp-area="" asp-controller="Absence" asp-action="Index">Пропуски</a>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Grade" asp-action="Index">оцінки</a>
+        </li>
+    </ul>
+</nav>

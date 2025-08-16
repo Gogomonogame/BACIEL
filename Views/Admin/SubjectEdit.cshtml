@@ -1,0 +1,33 @@
+﻿@model Subject
+@{
+    string strTitle = "Редагувати запис";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <h2>@strTitle</h2>
+    <div>
+        <form asp-area="" asp-controller="Admin" asp-action="SubjectEdit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="DateCreated" />
+
+            <div asp-validation-summary="All"></div>
+            <div class="div-box">
+                <label asp-for="SubjectName"></label>
+                <input asp-for="SubjectName" />
+                <span asp-validation-for="SubjectName"></span>
+            </div><p></p>
+            <div class="div-box">
+                <label asp-for="Teacher"></label>
+                <input asp-for="Teacher" />
+                <span asp-validation-for="Teacher"></span>
+            </div><p></p>
+            <div class="div-box">
+                <label asp-for="Hours"></label>
+                <input asp-for="Hours" />
+                <span asp-validation-for="Hours"></span>
+            </div><p></p>
+            <input type="submit" value="Зберегти" />
+
+        </form>
+    </div>
+</div>

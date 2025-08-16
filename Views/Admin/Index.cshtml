@@ -1,0 +1,246 @@
+﻿@{
+    string strTitle = "Панель адміністратора";
+    ViewBag.Title = strTitle;
+    IEnumerable<Group>? groups = ViewBag.Groups;
+    IEnumerable<Grade>? grades = ViewBag.Grades;
+    IEnumerable<Student>? students = ViewBag.Students;
+    IEnumerable<Absence>? absences = ViewBag.Absences;
+    IEnumerable<Subject>? subjects = ViewBag.Subjects;
+    IEnumerable<Timetable>? timetables = ViewBag.Timetables;
+}
+<div>
+    <h2>@strTitle</h2>
+    <div>
+        <h3>Групи</h3>
+        <div class="div-box">
+            <a asp-area="" asp-controller="Admin" asp-action="GroupEdit" asp-route-id="">Додати групу</a>
+        </div>
+        <div>
+            @if (groups?.Any() ?? false)
+            {
+                <div>
+                    @foreach (Group entity in groups)
+                    {
+                        <div>
+                            <a asp-area="" asp-controller="Admin" asp-action="GroupEdit" asp-route-id="@entity.Id">редагувати</a>
+                            |
+                            <form style="display: inline-block;" id="form-group-@entity.Id"
+                            asp-area="" asp-controller="Admin" asp-action="GroupDelete" method="post">
+                                <input type="hidden" name="id" value="@entity.Id" />
+                                <a href="#" 
+                                onclick="document.getElementById('form-group-@entity.Id').submit();"
+                                >
+                                    видалити
+                                </a>
+
+                            </form>
+                            |
+                            <span>
+                                <a asp-area="" asp-controller="Group" asp-action="GroupShow" asp-route-id="@entity.Id">@entity.GroupName</a>
+                            </span>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        <h3>Студенти</h3>
+        <div class="div-box">
+            <a asp-area="" asp-controller="Admin" asp-action="StudentEdit" asp-route-id="">Додати студента</a>
+        </div>
+        <div>
+            @if (students?.Any() ?? false)
+            {
+                <div>
+                    @foreach (Student entity in students)
+                    {
+                        <div>
+                            <a asp-area="" asp-controller="Admin" asp-action="StudentEdit" asp-route-id="@entity.Id">редагувати</a>
+                            |
+                            <form style="display: inline-block;" id="form-student-@entity.Id"
+                            asp-area="" asp-controller="Admin" asp-action="StudentDelete" method="post">
+                                <input type="hidden" name="id" value="@entity.Id" />
+                                <a href="#" 
+                                onclick="document.getElementById('form-student-@entity.Id').submit();"
+                                >
+                                    видалити
+                                </a>
+
+                            </form>
+                            |
+                            <span>
+                                @entity.Group?.GroupName |
+                                <a asp-area="" asp-controller="Student" asp-action="Index" asp-route-id="@entity.Id">@entity.Secondname @entity.Firstname</a>
+                            </span>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        <h3>Предмети</h3>
+        <div class="div-box">
+            <a asp-area="" asp-controller="Admin" asp-action="SubjectEdit" asp-route-id="">Додати предмет</a>
+        </div>
+        <div>
+            @if (subjects?.Any() ?? false)
+            {
+                <div>
+                    @foreach (Subject entity in subjects)
+                    {
+                        <div>
+                            <a asp-area="" asp-controller="Admin" asp-action="SubjectEdit" asp-route-id="@entity.Id">редагувати</a>
+                            |
+                            <form style="display: inline-block;" id="form-subject-@entity.Id"
+                            asp-area="" asp-controller="Admin" asp-action="SubjectDelete" method="post">
+                                <input type="hidden" name="id" value="@entity.Id" />
+                                <a href="#" 
+                                onclick="document.getElementById('form-subject-@entity.Id').submit();"
+                                >
+                                    видалити
+                                </a>
+
+                            </form>
+                            |
+                            <span>
+                                <a asp-area="" asp-controller="Subject" asp-action="Index" asp-route-id="@entity.Id">@entity.SubjectName</a>
+                                
+                            </span>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        <h3>Розклади</h3>
+        <div class="div-box">
+            <a asp-area="" asp-controller="Admin" asp-action="TimetableEdit" asp-route-id="">Додати розклад</a>
+        </div>
+        <div>
+            @if (timetables?.Any() ?? false)
+            {
+                <div>
+                    @foreach (Timetable entity in timetables)
+                    {
+                        <div>
+                            <a asp-area="" asp-controller="Admin" asp-action="TimetableEdit" asp-route-id="@entity.Id">редагувати</a>
+                            |
+                            <form style="display: inline-block;" id="form-timetable-@entity.Id"
+                            asp-area="" asp-controller="Admin" asp-action="TimetableDelete" method="post">
+                                <input type="hidden" name="id" value="@entity.Id" />
+                                <a href="#" 
+                                onclick="document.getElementById('form-timetable-@entity.Id').submit();"
+                                >
+                                    видалити
+                                </a>
+
+                            </form>
+                            |
+                            @if(entity.Changes == default && entity.Schedule != default)
+                            {
+                                <a asp-area="" asp-controller="Timetable" asp-action="ScheduleShow" asp-route-id="@entity.Id">розклад</a>
+                            }
+                            else if (entity.Changes != default && entity.Schedule == default)
+                            {
+                                <a asp-area="" asp-controller="Timetable" asp-action="ChangesShow" asp-route-id="@entity.Id">заміна</a>
+                                
+                            }
+                            else if (entity.Changes == default && entity.Schedule == default)
+                            {
+                                <a asp-area="" asp-controller="Timetable" asp-action="Index" asp-route-id="@entity.Id">розклад і заміна</a>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        <h3>Оцінки</h3>
+        <div class="div-box">
+            <a asp-area="" asp-controller="Admin" asp-action="GradeEdit" asp-route-id="">Додати оцінку</a>
+        </div>
+        <div>
+            @if (grades?.Any() ?? false)
+            {
+                <div>
+                    @foreach (Grade entity in grades)
+                    {
+                        <div>
+                            <a asp-area="" asp-controller="Admin" asp-action="GradeEdit" asp-route-id="@entity.Id">редагувати</a>
+                            |
+                            <form style="display: inline-block;" id="form-grade-@entity.Id"
+                            asp-area="" asp-controller="Admin" asp-action="GradeDelete" method="post">
+                                <input type="hidden" name="id" value="@entity.Id" />
+                                <a href="#" 
+                                onclick="document.getElementById('form-grade-@entity.Id').submit();"
+                                >
+                                    видалити
+                                </a>
+
+                            </form>
+                            |
+                            <span>
+                                @entity.Student?.Secondname @entity.Student?.Firstname|
+                                @entity.Subject?.SubjectName |
+                                <a asp-area="" asp-controller="Grade" asp-action="Index" asp-route-id="@entity.Id">@entity.Value</a>
+                            </span>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <div>
+        <h3>Пропуски</h3>
+        <div class="div-box">
+            <a asp-area="" asp-controller="Admin" asp-action="AbsenceEdit" asp-route-id="">Додати пропуск</a>
+        </div>
+        <div>
+            @if (absences?.Any() ?? false)
+            {
+                <div>
+                    @foreach (Absence entity in absences)
+                    {
+                        <div>
+                            <a asp-area="" asp-controller="Admin" asp-action="AbsenceEdit" asp-route-id="@entity.Id">редагувати</a>
+                            |
+                            <form style="display: inline-block;" id="form-absence-@entity.Id"
+                            asp-area="" asp-controller="Admin" asp-action="AbsenceDelete" method="post">
+                                <input type="hidden" name="id" value="@entity.Id" />
+                                <a href="#" 
+                                onclick="document.getElementById('form-absence-@entity.Id').submit();"
+                                >
+                                    видалити
+                                </a>
+                            </form>
+                            |
+                            <span>
+                                @entity.Student?.Secondname @entity.Student?.Firstname|
+                                @entity.Subject?.SubjectName |
+                                @entity.Date?.ToString("dd.MM.yyyy") |
+                                @if (entity.IsClosed == true)
+                                {
+                                    <a asp-area="" asp-controller="Absence" asp-action="Index" asp-route-id="@entity.Id">Закритий</a>
+                                }
+                                else
+                                {
+                                    <a asp-area="" asp-controller="Absence" asp-action="Index" asp-route-id="@entity.Id">Відкритий</a>
+                                }
+                            </span>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <p></p>
+    <div class="div-box">
+        <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+            <input type="submit" value="Вийти" />
+        </form>
+    </div>
+</div>

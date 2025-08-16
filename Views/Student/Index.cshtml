@@ -1,0 +1,57 @@
+﻿@model IEnumerable<StudentDTO>
+@{
+    string strTitle = "Студенти";
+    ViewBag.Title = strTitle;
+    List<string> groupNames = new();
+    foreach(StudentDTO student in Model)
+    {
+        bool isNew = true;
+        foreach(string groupName in groupNames)
+        {
+            if (groupName == student.GroupName)
+                isNew = false;
+        }
+        if (isNew)
+            groupNames.Add(student.GroupName!);
+    }
+}
+<div class="col-8 col-12-medium imp-medium">
+    <div id="content">
+        @if (Model.Any())
+        {
+            <section class="box article-list">
+                <h2 class="icon fa-file-alt">
+                    @strTitle
+                </h2>
+                @foreach(string groupName in groupNames)
+                {
+                    <h2>Група: @groupName</h2>
+                    @foreach (StudentDTO entity in Model)
+                    {
+                        if(entity.GroupName == groupName)
+                        {
+                            <article class="box excerpt major">
+
+                                <div>
+                                    <header>
+                                        <h3>
+                                            Студент: @entity.Firstname @entity.Secondname
+                                        </h3>
+                                    </header>
+                                    <h4>
+                                        Група: @entity.GroupName
+                                    </h4>
+                                </div>
+                            </article>
+                        }
+                    }
+                }
+                
+            </section>
+        }
+        else
+        {
+            <h3>Записи відсутні</h3>
+        }
+    </div>
+</div>

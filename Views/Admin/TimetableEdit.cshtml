@@ -1,0 +1,36 @@
+﻿@model Timetable
+@{
+    string strTitle = "Редагувати запис";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <h2>@strTitle</h2>
+    <div>
+        <form asp-area="" asp-controller="Admin" asp-action="TimetableEdit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Schedule" />
+            <input type="hidden" asp-for="Changes" />
+            <input type="hidden" asp-for="DateCreated" />
+
+            <div asp-validation-summary="All"></div>
+            <div class="div-box">
+                <label asp-for="Schedule">Розклад:</label>
+                <input type="file" name="scheduleImg" id="scheduleImg" />
+                <div>
+                    <img class="img-block" src="@Url.Content($"~/img/{Model.Schedule}")" />
+                </div>
+            </div><p></p>
+            <div class="div-box">
+                <label asp-for="Changes">Заміни:</label>
+                <input type="file" name="changesImg" id="changesImg" />
+                <div>
+                    <img class="img-block" src="@Url.Content($"~/img/{Model.Changes}")" />
+                </div>
+            </div>
+            <h6>Примітка: Заповнювати або розклад, або заміну, а не обидва разом.</h6>
+            <p></p>
+            <input type="submit" value="Зберегти" />
+
+        </form>
+    </div>
+</div>

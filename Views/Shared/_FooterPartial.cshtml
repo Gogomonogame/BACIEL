@@ -1,0 +1,19 @@
+﻿@inject IConfiguration config
+@{
+	AppConfig? appConfig = config.GetSection("Project").Get<AppConfig>();
+}
+<div id="footer-wrapper">
+	<footer id="footer" class="container">
+		<div class="row">
+			<div class="col-12">
+				<div id="copyright">
+					<h6>При закритті пропусків - звертайтесь до адміністратора сайту для відображення на сайті!</h6>
+					<ul class="menu">
+						<li>&copy; @appConfig?.Organization.OrganizationName. Всі права захищені.</li>
+						<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>

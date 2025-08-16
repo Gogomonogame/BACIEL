@@ -1,0 +1,40 @@
+﻿@model IEnumerable<GroupDTO>
+@{
+    string strTitle = "Групи";
+    ViewBag.Title = strTitle;
+}
+<div class="col-8 col-12-medium imp-medium">
+    <div id="content">
+        @if (Model.Any())
+        {
+            <section class="box article-list">
+                <h2 class="icon fa-file-alt">
+                    @strTitle
+                </h2>
+                    @foreach(GroupDTO entity in Model)
+                    {
+                        <article class="box excerpt major">
+                            
+                            <div>
+                                <header>
+                                    <h3>
+                                        Група: @entity.GroupName
+                                    </h3>
+                                </header>
+                                <h4>
+                                    Спеціальність: @entity.Speciality
+                                </h4>
+                                <h4>
+                                    Курс: @entity.Course
+                                </h4>
+                            </div>
+                        </article>
+                    }
+                </section>
+        }
+        else
+        {
+            <h3>Записи відсутні</h3>
+        }
+    </div>
+</div>

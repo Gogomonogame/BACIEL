@@ -1,0 +1,17 @@
+﻿@inject IConfiguration config
+@{
+	AppConfig? appConfig = config.GetSection("Project").Get<AppConfig>();
+}
+<div class="col-8 col-12-medium imp-medium">
+	<div id="content">
+		<article>
+			<header class="major">
+				<h2>Вітаю вас на сайті студентів @appConfig?.Organization.OrganizationName!</h2>
+				<p>Твоя доля в руках @appConfig?.Organization.OrganizationName!</p>
+			</header>
+			<span>
+				<img style="width:400px;height:auto;margin:0px 400px;margin-right:400px;" src="~/img/bg/bg.png" alt="welcome" />
+			</span>
+		</article>
+	</div>
+</div>

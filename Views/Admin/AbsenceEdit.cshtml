@@ -1,0 +1,48 @@
+﻿@model Absence
+@{
+    string strTitle = "Редагувати запис";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <h2>@strTitle</h2>
+    <div>
+        <form asp-area="" asp-controller="Admin" asp-action="AbsenceEdit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="DateCreated" />
+
+            <div asp-validation-summary="All"></div>
+            <div class="div-box">
+                <label asp-for="StudentId">Оберіть студента:</label>
+                <select asp-for="StudentId">
+                    <option value="">...</option>
+                    @foreach (Student entity in ViewBag.Students)
+                    {
+                        <option value="@entity.Id">@entity.Firstname @entity.Secondname</option>
+                    }
+                </select>
+            </div><p></p>
+            <div class="div-box">
+                <label asp-for="SubjectId">Оберіть предмет:</label>
+                <select asp-for="SubjectId">
+                    <option value="">...</option>
+                    @foreach (Subject entity in ViewBag.Subjects)
+                    {
+                        <option value="@entity.Id">@entity.SubjectName</option>
+                    }
+                </select>
+            </div><p></p>
+            <div class="div-box">
+                <label asp-for="Date"></label>
+                <input asp-for="Date" />
+                <span asp-validation-for="Date"></span>
+            </div><p></p>
+            <div class="div-box">
+                <label asp-for="IsClosed"></label>
+                <input asp-for="IsClosed" type="checkbox" />
+                <span asp-validation-for="IsClosed"></span>
+            </div><p></p>
+            <input type="submit" value="Зберегти" />
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<AbsenceDTO>
+@{
+    string strTitle = "Пропуски";
+    ViewBag.Title = strTitle;
+}
+
+<div class="col-8 col-12-medium imp-medium">
+    <div id="content">
+        <section class="box article-list">
+            <h2 class="icon fa-file-alt">@strTitle</h2>
+
+            <!-- Форма фільтрації -->
+            <form method="get" asp-action="Index">
+                <select name="student">
+                    <option value="">Всі студенти</option>
+                    @foreach (var s in ViewBag.Students)
+                    {
+                        <option value="@s">@s</option>
+                    }
+                </select><p></p>
+
+                <select name="subject">
+                    <option value="">Всі предмети</option>
+                    @foreach (var s in ViewBag.Subjects)
+                    {
+                        <option value="@s">@s</option>
+                    }
+                </select><p></p>
+
+                <select name="date">
+                    <option value="">Всі дати</option>
+                    @foreach (var d in ViewBag.Dates)
+                    {
+                        <option value="@d.ToString("yyyy-MM-dd")">@d.ToString("dd.MM.yyyy")</option>
+                    }
+                </select><p></p>
+
+                <select name="closed">
+                    <option value="">Всі</option>
+                    @foreach (var c in ViewBag.Closed)
+                    {
+                        <option value="@c">@c</option>
+                    }
+                </select><p></p>
+
+                <button type="submit">Фільтрувати</button>
+            </form>
+        </section>
+
+        @if (Model.Any())
+        {
+            @foreach (AbsenceDTO entity in Model)
+            {
+                <article class="box excerpt major">
+                    <header>
+                        <h4>
+                            Студент: @entity.StudentFirstname @entity.StudentSecondname |
+                            Предмет: @entity.SubjectName |
+                            Дата: @entity.Date?.ToString("dd.MM.yyyy") |
+                            Статус: @(entity.IsClosed ? "Закритий" : "Не закритий")
+                        </h4>
+                    </header>
+                </article>
+            }
+        }
+        else
+        {
+            <h3>Записи відсутні</h3>
+        }
+    </div>
+</div>

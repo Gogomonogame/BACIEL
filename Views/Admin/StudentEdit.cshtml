@@ -1,0 +1,37 @@
+﻿@model Student
+@{
+    string strTitle = "Редагувати запис";
+    ViewBag.Title = strTitle;
+}
+<div>
+    <h2>@strTitle</h2>
+    <div>
+        <form asp-area="" asp-controller="Admin" asp-action="StudentEdit" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="DateCreated" />
+
+            <div asp-validation-summary="All"></div>
+            <div class="div-box">
+                <select asp-for="GroupId">
+                    <option value="">...</option>
+                    @foreach(Group entity in ViewBag.Groups)
+                    {
+                        <option value="@entity.Id">@entity.GroupName</option>
+                    }
+                </select>
+            </div><p></p>
+            <div class="div-box">
+                <label asp-for="Secondname"></label>
+                <input asp-for="Secondname" />
+                <span asp-validation-for="Secondname"></span>
+            </div><p></p>
+            <div class="div-box">
+                <label asp-for="Firstname"></label>
+                <input asp-for="Firstname" />
+                <span asp-validation-for="Firstname"></span>
+            </div><p></p>
+            <input type="submit" value="Зберегти" />
+
+        </form>
+    </div>
+</div>
